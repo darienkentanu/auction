@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "./";
+
+message Product {
+    string id = 1;
+    string name = 2;
+    int32 price = 3;
+}
+
+message ProductList {
+    repeated Product list = 1;
+}
+
+// message Bid {
+//     int32 price = 1;
+// }
+
+// message BidList {
+//     repeated Bid list = 1;
+// }
+
+import "google/protobuf/empty.proto";
+
+service Auction {
+    rpc AddProduct(Product) returns (google.protobuf.Empty) {}
+    rpc ListProduct(google.protobuf.Empty) returns (ProductList) {}
+    // rpc IncreasePrice(Bid) returns (google.protobuf.Empty) {}
+    // rpc FinalPrice(google.protobuf.Empty) returns (Product) {}
+}
