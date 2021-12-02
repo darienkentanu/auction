@@ -4,9 +4,11 @@ import (
 	"auction/common/config"
 	"auction/common/model"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 )
 
@@ -38,4 +40,11 @@ func main() {
 	auction.AddProduct(context.Background(), &product1)
 	// add product 2
 	auction.AddProduct(context.Background(), &product2)
+	// view list of product
+	res1, err := auction.ListProduct(context.Background(), new(empty.Empty))
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	res1String, _ := json.Marshal(res1.List)
+	log.Println(string(res1String))
 }
